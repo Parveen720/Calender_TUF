@@ -205,8 +205,6 @@ export default function Home() {
           <div className="absolute top-4 left-4 w-full h-full bg-white rounded-2xl shadow-md opacity-50"></div>
           <div className="absolute top-2 left-2 w-full h-full bg-white rounded-2xl shadow-lg opacity-60"></div>
           
-          //this is basically for animation
-
           <AnimatePresence mode="wait">
             
             <motion.div
