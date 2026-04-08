@@ -1,36 +1,173 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📅 Interactive Wall Calendar App
 
-## Getting Started
+A modern, responsive **wall-style calendar application** built with **React (Next.js), Tailwind CSS, and Framer Motion**.
+This project replicates a physical hanging calendar with smooth animations, theme switching, and smart note management.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Features
+
+### 📆 Calendar
+
+* Monthly calendar view (Monday → Sunday)
+* Proper date alignment (real calendar logic)
+* Today highlight
+* Sunday & national holidays highlighted in red
+* Smooth **page flip animation** between months
+
+---
+
+### 📝 Notes System
+
+* Add notes for:
+
+  * Specific date
+  * Whole month
+* Notebook-style UI (lined textarea)
+* Notes saved in **localStorage**
+* Auto-load notes when date/month changes
+
+---
+
+### 🎨 Theme System
+
+* Two themes:
+
+  * 🌿 Nature (Day)
+  * 🌌 Galaxy (Night)
+* Dynamic hero image
+* Theme-based color system
+* One-click theme toggle
+
+---
+
+### 🎯 Event Marking
+
+* Double click on date → open selector
+* Mark as:
+
+  * 🔵 Personal
+  * 🟢 Work
+  * 🔴 Urgent
+* Full background color fill based on type
+* Remove mark option (❌)
+* Visual legend below notes section
+
+---
+
+### ⚡ Smart UX
+
+* Click → select date
+* Hover (drag) → preview range
+* Fixed hover bug (only active on drag)
+* Clean UI (no extra buttons)
+* Popup positioned correctly above date
+
+---
+
+### 📱 Fully Responsive
+
+* Mobile-friendly layout
+* No side gaps
+* Adaptive grid
+* Touch-friendly interactions
+
+---
+
+## 🛠 Tech Stack
+
+* **React / Next.js**
+* **Tailwind CSS**
+* **Framer Motion**
+* **date-fns**
+* **LocalStorage (for persistence)**
+
+---
+
+## 📂 Project Structure
+
+```
+/app
+  └── page.tsx   # Main calendar component
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ⚙️ Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+git clone https://github.com/your-username/calendar-app.git
+cd calendar-app
+npm install
+npm run dev
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🧠 Key Concepts Used
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* State Management (React Hooks)
+* Conditional Rendering
+* Dynamic Styling (Tailwind)
+* Date Handling (date-fns)
+* Animation (Framer Motion)
+* Responsive Design
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🎨 UI Inspiration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* Physical wall calendar
+* Minimal productivity apps
+* Clean modern dashboard design
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📸 Screenshots
+
+<img width="1875" height="906" alt="image" src="https://github.com/user-attachments/assets/125c910f-10a0-402c-b59c-55c738644f49" />
+
+
+---
+
+## 🏆 Highlights
+
+* Real-world UX thinking
+* Clean and scalable code
+* Theme-based design system
+* Smooth animations
+* Production-level interaction handling
+
+---
+
+## 📌 Future Improvements
+
+* Add backend (MongoDB / Firebase)
+* User authentication
+* Sync across devices
+* Drag & drop events
+* Notifications / reminders
+
+---
+
+## 👨‍💻 Author
+
+**Parveen Kumar**
+
+---
+
+## 📄 License
+
+This project is open-source and free to use.
+
+---
+
+## ⭐ Support
+
+If you like this project:
+
+* ⭐ Star the repo
+* Share it
+* Use it in your portfolio
+
+---
