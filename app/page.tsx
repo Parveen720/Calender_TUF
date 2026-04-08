@@ -30,11 +30,11 @@ export default function Home() {
     "2026-08-15", // Independence Day
     "2026-10-02", // Gandhi Jayanti
   ];
-
   const [noteType, setNoteType] = useState<{ [key: string]: string }>({});
   const [activeDate, setActiveDate] = useState<number | null>(null);
   const [isMouseDown, setIsMouseDown] = useState(false);
-
+  
+  //this section is for notes related work
   //NEW: key generator (month + date)
   function getNoteKey(day: number | null) {
     const monthKey = format(currentDate, "yyyy-MM");
@@ -43,6 +43,52 @@ export default function Home() {
     return `${monthKey}-month`; // month note
   }
 
+  function getRangeKey(start: number, end: number) {
+    const monthKey = format(currentDate, "yyyy-MM");
+    return `${monthKey}-${start}-${end}`;
+  }
+
+  function removeNote() {
+    let key;
+
+    if (startDate && endDate) {
+      key = getRangeKey(startDate, endDate);
+    } else if (startDate) {
+      key = getNoteKey(startDate);
+    } else {
+      key = getNoteKey(null);
+    }
+
+    setNotes((prev) => {
+      const updated = { ...prev };
+      delete updated[key];
+      return updated;
+    });
+
+    setCurrentNote("");
+  }
+
+   //For SAVE NOTES
+  function saveNote() {
+    let key;
+
+    if (startDate && endDate) {
+      key = getRangeKey(startDate, endDate); // RANGE
+    } else if (startDate) {
+      key = getNoteKey(startDate); // single date
+    } else {
+      key = getNoteKey(null); // month
+    }
+
+    setNotes((prev) => ({
+      ...prev,
+      [key]: currentNote,
+    }));
+  }
+
+
+    //
+  //this section is for handling the date
   function handleDateClick(day: number) {
     if (!startDate || (startDate && endDate)) {
       setStartDate(day);
@@ -57,22 +103,7 @@ export default function Home() {
     }
   }
 
-  //For SAVE NOTES
-  function saveNote() {
-    let key;
-
-    if (startDate && !endDate) {
-      key = getNoteKey(startDate);
-    } else {
-      key = getNoteKey(null);
-    }
-
-    setNotes((prev) => ({
-      ...prev,
-      [key]: currentNote,
-    }));
-  }
-
+ 
   function nextMonth() {
     setDirection(1);
     const newDate = new Date(currentDate);
@@ -91,7 +122,7 @@ export default function Home() {
     setEndDate(null);
   }
 
-
+   //set work type urgent work personal 
   function setType(day: number, type: string) {
     const key = `${format(currentDate, "yyyy-MM")}-${day}`;
 
@@ -115,13 +146,17 @@ export default function Home() {
     setActiveDate(null);
   }
 
+
+  //effect for range selction
   useEffect(() => {
     let key;
 
-    if (startDate && !endDate) {
-      key = getNoteKey(startDate); // single date
+    if (startDate && endDate) {
+      key = getRangeKey(startDate, endDate); 
+    } else if (startDate) {
+      key = getNoteKey(startDate);
     } else {
-      key = getNoteKey(null); // month
+      key = getNoteKey(null);
     }
 
     setCurrentNote(notes[key] || "");
@@ -169,8 +204,11 @@ export default function Home() {
 
           <div className="absolute top-4 left-4 w-full h-full bg-white rounded-2xl shadow-md opacity-50"></div>
           <div className="absolute top-2 left-2 w-full h-full bg-white rounded-2xl shadow-lg opacity-60"></div>
+          
+          //this is basically for animation
 
           <AnimatePresence mode="wait">
+            
             <motion.div
               key={currentDate.toISOString()}
               initial={{
@@ -255,13 +293,22 @@ export default function Home() {
                     onChange={(e) => setCurrentNote(e.target.value)}
                   />
 
-                  <button
-                    onClick={saveNote}
-                    className={`w-full text-white py-2 rounded-lg ${mode === "theme1" ? "bg-blue-500" : "bg-purple-500"
-                      }`}
-                  >
-                    Save
-                  </button>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={saveNote}
+                      className={`w-1/2 text-white py-2 rounded-lg ${mode === "theme1" ? "bg-blue-500" : "bg-purple-500"
+                        }`}
+                    >
+                      Save
+                    </button>
+
+                    <button
+                      onClick={removeNote}
+                      className="w-1/2 bg-gray-300 text-black py-2 rounded-lg"
+                    >
+                      Remove
+                    </button>
+                  </div>
                   <div className="flex justify-center gap-4 mt-2 text-xs items-center">
 
                     <div className="flex items-center gap-1">
@@ -326,7 +373,23 @@ export default function Home() {
                         day >= startDate &&
                         day <= endDate;
                       const dateKey = `${format(currentDate, "yyyy-MM")}-${day}`;
-                      const hasEvent = !!notes[dateKey];
+                      const hasEvent =
+                        !!notes[dateKey] ||
+                        Object.keys(notes).some((k) => {
+                          const parts = k.split("-");
+
+                          if (parts.length === 4) {
+                            const [year, month, start, end] = parts;
+
+                            if (`${year}-${month}` === format(currentDate, "yyyy-MM")) {
+                              const s = parseInt(start);
+                              const e = parseInt(end);
+                              return day >= s && day <= e;
+                            }
+                          }
+
+                          return false;
+                        })
                       const fullDate = format(dateObj, "yyyy-MM-dd");
 
                       // Saturday (6) & Sunday (0)
